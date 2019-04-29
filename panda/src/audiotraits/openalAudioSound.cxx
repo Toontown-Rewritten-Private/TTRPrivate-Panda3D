@@ -406,7 +406,6 @@ read_stream_data(int bytelen, unsigned char *buffer) {
   nassertr(has_sound_data(), 0);
 
   MovieAudioCursor *cursor = _sd->_stream;
-  double length = cursor->length();
   int channels = cursor->audio_channels();
   int rate = cursor->audio_rate();
   int space = bytelen / (channels * 2);
@@ -414,7 +413,7 @@ read_stream_data(int bytelen, unsigned char *buffer) {
 
   while (space && (_loops_completed < _playing_loops)) {
     double t = cursor->tell();
-    double remain = length - t;
+    double remain = cursor->length() - t;
     if (remain > 60.0) {
       remain = 60.0;
     }
@@ -444,7 +443,6 @@ read_stream_data(int bytelen, unsigned char *buffer) {
     if (samples == 0) {
       _loops_completed += 1;
       cursor->seek(_loop_start);
-      cursor->seek(0.0);
       if (_playing_loops >= 1000000000) {
         // Prevent infinite loop if endlessly looping empty sound
         return fill;
