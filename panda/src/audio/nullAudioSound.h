@@ -37,9 +37,6 @@ public:
   void set_loop_count(unsigned long);
   unsigned long get_loop_count() const;
 
-  void set_loop_start(PN_stdfloat);
-  PN_stdfloat get_loop_start() const;
-
   void set_time(PN_stdfloat);
   PN_stdfloat get_time() const;
 
